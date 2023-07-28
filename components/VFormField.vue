@@ -7,7 +7,7 @@
         <slot name="body"></slot>
       </div>
 
-      <span>{{ error }}</span>
+      <div class="text-orange-500">{{ error }}</div>
     </div>
   </div>
 </template>

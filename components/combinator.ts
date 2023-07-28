@@ -44,29 +44,31 @@ export function useInputClass({
   const hasError = !!error
 
   return {
-    "min-h-52": isLg,
-    "min-h-44": isMd,
-    "min-h-32": isSm,
-    "pt-10": isLg && isLoading,
-    "pt-6px": isMd && isLoading,
-    "pt-2px": isSm && isLoading,
-    "rounded-8": isLg || isMd,
-    "rounded-6": isSm,
+    "min-h-[52px]": isLg,
+    "min-h-[44px]": isMd,
+    "min-h-[32px]": isSm,
+    "pt-[10px]": isLg && isLoading,
+    "pt-6": isMd && isLoading,
+    "pt-2": isSm && isLoading,
+    "rounded-[8px]": isLg || isMd,
+    "rounded-[6px]": isSm,
     "text-base": isLg || isMd,
     "text-sm": isSm,
     "border-grey-200": !isDisabled && !hasError,
     "hover:border-grey-400": !isDisabled && !hasError && !isLoading,
-    "focus-within:border-blue": !isDisabled && !hasError && !isLoading,
-    "active:border-blue": !isDisabled && !hasError && !isLoading,
+    "focus-within:border-sky-500": !isDisabled && !hasError && !isLoading,
+    "active:border-sky-500": !isDisabled && !hasError && !isLoading,
     "bg-white": !isDisabled && !isLoading,
-    "bg-grey-100": isDisabled || isLoading,
-    "border-grey-150": isDisabled || isLoading,
-    "border-orange": !isDisabled && hasError,
+    "bg-slate-100": isDisabled || isLoading,
+    "text-grey-150": isDisabled || isLoading,
+    "border-orange-500": !isDisabled && hasError,
     "cursor-text": !isLoading && !disabled,
     "cursor-wait": isLoading,
     "cursor-not-allowed": Boolean(disabled),
     "border-solid": true,
     "box-border": true,
+    "px-3": isSm,
+    "px-6": isMd || isLg,
   }
 }
 
@@ -82,9 +84,9 @@ export const useSelectItemClass = ({
   const isLg = size === "lg"
 
   return {
-    "py-6": isSm,
-    "px-12": isSm || isMd || isLg,
-    "py-10": isMd || isLg,
+    "py-3": isSm,
+    "px-6": isSm || isMd || isLg,
+    "py-4": isMd || isLg,
 
     "text-sm": isSm,
     "leading-5": isSm,

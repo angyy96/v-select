@@ -34,15 +34,17 @@ const simpleTypeObj = ref<DogOption>(
   <div class="playground">
     <div class="sm">
       <div class="col">
-        <h2>Простые селекты</h2>
+        <h2>Simple selects</h2>
 
         <VSelect
           v-model="simpleTypeObj"
-          label="Тип исполнителя (объект)"
+          label="Select a dog"
           :dv="(option) => option?.text"
+          :error="'ОШибка'"
+          id="select"
           by="id"
-          placeholder="Выберите тип исполнителя (объект)"
-          size="sm"
+          placeholder="select a dog"
+          size="lg"
         >
           <VSelectOption
             v-for="option in typeOptions"

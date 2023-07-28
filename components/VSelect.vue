@@ -100,7 +100,6 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
     :id="id"
     :data-testid="id"
     :model-value="modelValue"
-    v-slot="{ open }"
     :nullable="nullable"
     :default-value="defaultValue"
     :multiple="multiple"
@@ -109,6 +108,8 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
     :name="name"
     as="div"
     @update:model-value="onUpdateModelValue"
+    v-slot="{ open }"
+    class="text-gray-500"
   >
     <VFormField :error="error">
       <template #label>
@@ -126,7 +127,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
         <base-popper ref="popper" :value="open" :same-width="true">
           <div
             ref="around"
-            class="flex border-solid border-2 pl-12 transition-all max-w-full"
+            class="flex border-solid border-2 transition-all max-w-full"
             :class="inputClasses"
             @click="onAroundClick"
           >
@@ -147,7 +148,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
                 ref="inputComponent"
                 :data-testid="`${id}-input`"
                 :aria-invalid="!!error"
-                class="box-border placeholder-grey-400 outline-none p-0 min-w-0 bg-transparent border-0 combobox-input"
+                class="box-border placeholder:text-slate-400 outline-none p-0 min-w-0 bg-transparent border-0 combobox-input"
                 autocomplete="off"
                 :display-value="dv"
                 :disabled="disabled"
@@ -161,7 +162,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
               ref="inputComponent"
               :data-testid="`${id}-input`"
               :aria-invalid="!!error"
-              class="box-border placeholder-grey-400 outline-none p-0 bg-transparent border-0 min-w-0 flex-1"
+              class="box-border placeholder:text-slate-400 outline-none p-0 bg-transparent border-0 min-w-0 flex-1"
               autocomplete="off"
               :disabled="disabled"
               :display-value="dv"
@@ -172,7 +173,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
             <ComboboxButton
               :id="`${id}-button`"
               :data-testid="`${id}-button`"
-              class="flex items-center pr-12 border-none text-grey-400"
+              class="flex items-end justify-end border-none"
               :disabled="disabled"
             >
               <template v-if="loading" class="loading-icon">
@@ -189,7 +190,8 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
                   </svg>
                 </div>
               </template>
-              <span v-else> &#8964; </span>
+              <span v-else-if="!open"> &#8964; </span>
+              <span v-else-if="open"> &#8963; </span>
             </ComboboxButton>
           </div>
           <template #content>

@@ -135,22 +135,24 @@ const transitionName = computed(() => {
 
 <template>
   <div class="base-popper">
-    <div ref="wrapper" class="wrapper">
-      <slot />
-    </div>
+    <slot />
 
-    <div ref="popperContainer" class="popper">
+    <div ref="popperContainer" class="base-popper__content">
       <transition :name="transitionName">
-        <div v-show="value && !disabled" class="w-full">
-          <slot name="content" />
-        </div>
+        <slot v-if="value && !disabled" name="content" />
       </transition>
     </div>
   </div>
 </template>
 
 <style scoped>
-.base-popper .popper {
+/* .base-popper {
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+.base-popper__content {
+  /* TODO ? */
   z-index: 50;
 }
 </style>

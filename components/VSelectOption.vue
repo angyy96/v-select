@@ -21,12 +21,12 @@ const optionClasses = computed(() =>
       :disabled="disabled"
       :class="{
         ...optionClasses,
-        'bg-grey-100': active,
-        'text-grey-400': disabled,
+        'bg-slate-100': active,
+        'text-slate-400': disabled,
+        'text-sky-500 font-bold': selected,
       }"
     >
       <slot />
-      <span v-if="selected"> &#10004;</span>
     </li>
   </ComboboxOption>
 </template>
