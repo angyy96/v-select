@@ -29,8 +29,6 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
 
-// TODO clickoutside
-
 const resizeObserver = ref<ResizeObserver | null>(null)
 const wrapper = ref<Element | VirtualElement | null>(null)
 
@@ -119,14 +117,16 @@ const update = () => {
 }
 
 const transitionName = computed(() => {
-  const reverseMap: Record<string, string> = {
+  const reverseMap = {
     left: "right",
     right: "left",
     top: "bottom",
     bottom: "top",
   }
 
-  const stripped = props.placement.replace("-start", "").replace("-end", "")
+  const stripped = props.placement
+    .replace("-start", "")
+    .replace("-end", "") as keyof typeof reverseMap
   const reverse = reverseMap[stripped]
 
   return `translate-dropdown-to-${reverse}`
@@ -138,7 +138,7 @@ const transitionName = computed(() => {
     <slot />
 
     <div ref="popperContainer" class="base-popper__content">
-      <transition :name="transitionName">
+      <transition name="fade">
         <slot v-if="value && !disabled" name="content" />
       </transition>
     </div>
@@ -146,13 +146,20 @@ const transitionName = computed(() => {
 </template>
 
 <style scoped>
-/* .base-popper {
-  position: absolute;
-  top: 0;
-  left: 0;
-} */
 .base-popper__content {
   /* TODO ? */
   z-index: 50;
+}
+
+/* Content animation */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
