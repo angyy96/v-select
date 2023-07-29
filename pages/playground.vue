@@ -2,7 +2,7 @@
 enum DogPedegree {
   Labrador = "labrador",
   Shepherd = "shepherd",
-  Chihua = "Chihua",
+  Chihuahua = "Chihuahua",
 }
 
 const data = ref({
@@ -20,11 +20,16 @@ interface DogOption {
 const typeOptions = [
   { id: DogPedegree.Labrador, text: "Labrador" },
   { id: DogPedegree.Shepherd, text: "Shepherd" },
-  { id: DogPedegree.Chihua, text: "Chihua" },
+  { id: DogPedegree.Chihuahua, text: "Chihuahua" },
 ]
 
 // Простые селекты
 const simpleTypeObj = ref<DogOption>(
+  typeOptions.find((option) => option.id == data.value.params.type) ??
+    typeOptions[0]
+)
+
+const simpleTypeObDisabled = ref<DogOption>(
   typeOptions.find((option) => option.id == data.value.params.type) ??
     typeOptions[0]
 )
@@ -40,7 +45,7 @@ const simpleTypeObj = ref<DogOption>(
           v-model="simpleTypeObj"
           label="Select a dog"
           :dv="(option) => option?.text"
-          id="select"
+          id="select_one"
           by="id"
           placeholder="select a dog"
           size="lg"
@@ -48,7 +53,7 @@ const simpleTypeObj = ref<DogOption>(
           <VSelectOption
             v-for="option in typeOptions"
             :key="option.id"
-            :value="option"
+            :value="option.id"
             size="sm"
             >{{ option.text }}</VSelectOption
           >
@@ -58,10 +63,10 @@ const simpleTypeObj = ref<DogOption>(
         <h1 class="text-xl pb-8">Simple disabled selects</h1>
 
         <VSelect
-          v-model="simpleTypeObj"
+          v-model="simpleTypeObDisabled"
           label="Select a dog"
           :dv="(option) => option?.text"
-          id="select"
+          id="select_two"
           disabled
           by="id"
           placeholder="select a dog"
@@ -70,7 +75,7 @@ const simpleTypeObj = ref<DogOption>(
           <VSelectOption
             v-for="option in typeOptions"
             :key="option.id"
-            :value="option"
+            :value="option.id"
             size="sm"
             >{{ option.text }}</VSelectOption
           >

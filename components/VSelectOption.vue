@@ -4,6 +4,7 @@ import { InputSizes, useSelectItemClass } from "./combinator"
 
 interface P {
   size?: "lg" | "md" | "sm"
+  value?: string
 }
 
 const props = withDefaults(defineProps<P>(), { size: "md" })
@@ -19,6 +20,8 @@ const optionClasses = computed(() =>
       class="cursor-pointer flex gap-8 items-center"
       role="option"
       :disabled="disabled"
+      :aria-disabled="disabled"
+      :aria-labelledby="value"
       :class="{
         ...optionClasses,
         'bg-slate-100': active,

@@ -108,7 +108,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
     :name="name"
     as="div"
     @update:model-value="onUpdateModelValue"
-    v-slot="{ open }"
+    v-slot="{ open, active }"
   >
     <VFormField :error="error">
       <template #label>
@@ -155,6 +155,11 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
                 class="vselect__input box-border placeholder:text-slate-400 outline-none p-0 min-w-0 bg-transparent border-0 combobox-input"
                 autocomplete="off"
                 :display-value="dv"
+                :aria-label="label"
+                :aria-multiline="false"
+                :aria-multiselectable="true"
+                :aria-required="required"
+                :aria-disabled="disabled"
                 :disabled="disabled"
                 :placeholder="placeholder"
                 @change="onQueryChange"
@@ -166,6 +171,9 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
               ref="inputComponent"
               :data-testid="`${id}-input`"
               :aria-invalid="!!error"
+              :aria-required="required"
+              :aria-disabled="disabled"
+              :aria-owns="`${id}-options`"
               class="vselect__input box-border placeholder:text-slate-400 outline-none p-0 bg-transparent border-0 min-w-0 flex-1"
               autocomplete="off"
               :disabled="disabled"
@@ -178,6 +186,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
               :id="`${id}-button`"
               :data-testid="`${id}-button`"
               :disabled="disabled"
+              :aria-disabled="disabled"
               class="border-none w-16 flex items-center justify-center"
               :class="{ 'vselect__button--disabled': disabled }"
             >
