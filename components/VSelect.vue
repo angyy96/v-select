@@ -192,20 +192,36 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
             >
               <template v-if="loading" class="loading-icon">
                 <div class="m-loader-circle">
-                  <svg class="m-loader-circle__box" viewBox="25 25 50 50">
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="xMidYMid"
+                  >
                     <circle
-                      class="m-loader__line text-grey-400"
                       cx="50"
                       cy="50"
-                      r="20"
-                      stroke="currentColor"
                       fill="none"
-                    />
+                      stroke="#1d3f72"
+                      stroke-width="2"
+                      r="35"
+                      stroke-dasharray="164.93361431346415 56.97787143782138"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        repeatCount="indefinite"
+                        dur="1s"
+                        values="0 50 50;360 50 50"
+                        keyTimes="0;1"
+                      ></animateTransform>
+                    </circle>
                   </svg>
                 </div>
               </template>
 
               <svg
+                v-else
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"

@@ -18,7 +18,7 @@ interface DogOption {
 }
 
 const typeOptions = [
-  { id: DogPedegree.Labrador, text: "Labrador" },
+  { id: DogPedegree.Labrador, text: "Labrador", disabled: true },
   { id: DogPedegree.Shepherd, text: "Shepherd" },
   { id: DogPedegree.Chihuahua, text: "Chihuahua" },
 ]
@@ -39,13 +39,56 @@ const simpleTypeObDisabled = ref<DogOption>(
   <div class="playground">
     <div class="flex flex-col gap-10">
       <div class="col">
-        <h1 class="text-xl pb-8">Simple selects</h1>
+        <h1 class="text-xl pb-8">Simple small select</h1>
 
         <VSelect
           v-model="simpleTypeObj"
           label="Select a dog"
           :dv="(option) => option?.text"
           id="select_one"
+          by="id"
+          placeholder="select a dog"
+          size="sm"
+        >
+          <VSelectOption
+            v-for="option in typeOptions"
+            :key="option.id"
+            :value="option.id"
+            size="sm"
+            >{{ option.text }}</VSelectOption
+          >
+        </VSelect>
+      </div>
+      <div class="col">
+        <h1 class="text-xl pb-8">Simple medium select</h1>
+
+        <VSelect
+          v-model="simpleTypeObDisabled"
+          label="Select a dog"
+          :dv="(option) => option?.text"
+          id="select_two"
+          by="id"
+          placeholder="select a dog"
+          size="md"
+        >
+          <VSelectOption
+            v-for="option in typeOptions"
+            :key="option.id"
+            :value="option.id"
+            size="sm"
+            >{{ option.text }}</VSelectOption
+          >
+        </VSelect>
+      </div>
+
+      <div class="col">
+        <h1 class="text-xl pb-8">Simple large select</h1>
+
+        <VSelect
+          v-model="simpleTypeObDisabled"
+          label="Select a dog"
+          :dv="(option) => option?.text"
+          id="select_two"
           by="id"
           placeholder="select a dog"
           size="lg"
@@ -59,8 +102,9 @@ const simpleTypeObDisabled = ref<DogOption>(
           >
         </VSelect>
       </div>
+
       <div class="col">
-        <h1 class="text-xl pb-8">Simple disabled selects</h1>
+        <h1 class="text-xl pb-8">Simple disabled select</h1>
 
         <VSelect
           v-model="simpleTypeObDisabled"
@@ -68,6 +112,52 @@ const simpleTypeObDisabled = ref<DogOption>(
           :dv="(option) => option?.text"
           id="select_two"
           disabled
+          by="id"
+          placeholder="select a dog"
+          size="lg"
+        >
+          <VSelectOption
+            v-for="option in typeOptions"
+            :key="option.id"
+            :value="option.id"
+            size="sm"
+            >{{ option.text }}</VSelectOption
+          >
+        </VSelect>
+      </div>
+
+      <div class="col">
+        <h1 class="text-xl pb-8">Simple select with error</h1>
+
+        <VSelect
+          v-model="simpleTypeObDisabled"
+          label="Select a dog"
+          :dv="(option) => option?.text"
+          id="select_two"
+          error="Error"
+          by="id"
+          placeholder="select a dog"
+          size="lg"
+        >
+          <VSelectOption
+            v-for="option in typeOptions"
+            :key="option.id"
+            :value="option.id"
+            size="sm"
+            >{{ option.text }}</VSelectOption
+          >
+        </VSelect>
+      </div>
+
+      <div class="col">
+        <h1 class="text-xl pb-8">Simple select with loading</h1>
+
+        <VSelect
+          v-model="simpleTypeObDisabled"
+          label="Select a dog"
+          :dv="(option) => option?.text"
+          id="select_two"
+          :loading="true"
           by="id"
           placeholder="select a dog"
           size="lg"
