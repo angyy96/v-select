@@ -40,7 +40,6 @@ const simpleTypeObj = ref<DogOption>(
           v-model="simpleTypeObj"
           label="Select a dog"
           :dv="(option) => option?.text"
-          :error="'ОШибка'"
           id="select"
           by="id"
           placeholder="select a dog"
@@ -66,5 +65,8 @@ const simpleTypeObj = ref<DogOption>(
   grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
   padding: 24px;
+
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 </style>

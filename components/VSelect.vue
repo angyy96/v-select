@@ -109,7 +109,6 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
     as="div"
     @update:model-value="onUpdateModelValue"
     v-slot="{ open }"
-    class="text-gray-500"
   >
     <VFormField :error="error">
       <template #label>
@@ -118,7 +117,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
           :id="`${id}-label`"
           :for="`${id}-input`"
           :data-testid="`${id}-label`"
-          :class="{ 'v-select__label--required': required }"
+          :class="{ 'vselect__label--required': required }"
           >{{ label }}</ComboboxLabel
         >
       </template>
@@ -127,7 +126,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
         <base-popper ref="popper" :value="open" :same-width="true">
           <div
             ref="around"
-            class="flex border-solid border-2 transition-all max-w-full"
+            class="flex border-solid border transition-all max-w-full"
             :class="inputClasses"
             @click="onAroundClick"
           >
@@ -173,8 +172,8 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
             <ComboboxButton
               :id="`${id}-button`"
               :data-testid="`${id}-button`"
-              class="flex items-end justify-end border-none"
               :disabled="disabled"
+              class="border-none w-2"
             >
               <template v-if="loading" class="loading-icon">
                 <div class="m-loader-circle">
@@ -190,8 +189,21 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
                   </svg>
                 </div>
               </template>
-              <span v-else-if="!open"> &#8964; </span>
-              <span v-else-if="open"> &#8963; </span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                class="vselect__caret"
+                :class="{ 'is-reverse': open }"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
             </ComboboxButton>
           </div>
           <template #content>
@@ -199,7 +211,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
               :id="`${id}-options`"
               :data-testid="`${id}-options`"
               static
-              class="v-select__options"
+              class="vselect__options"
             >
               <slot />
             </ComboboxOptions>
@@ -211,12 +223,12 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
 </template>
 
 <style scoped>
-.v-select__label--required::before {
+.vselect__label--required::before {
   content: "*";
   margin-right: 4px;
   color: orangered;
 }
-.v-select__options {
+.vselect__options {
   margin: 0;
   background: white;
   overflow: auto;
@@ -228,5 +240,12 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
   padding-inline-start: 0;
   box-shadow: 0px 0px 16px rgba(29, 32, 35, 0.04),
     0px 15px 30px rgba(29, 32, 35, 0.1);
+}
+
+.vselect__caret {
+  transition: transform 0.3s ease-in-out;
+}
+.vselect__caret.is-reverse {
+  transform: rotate(-180deg);
 }
 </style>
