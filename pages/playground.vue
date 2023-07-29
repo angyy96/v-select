@@ -32,7 +32,7 @@ const simpleTypeObj = ref<DogOption>(
 
 <template>
   <div class="playground">
-    <div class="sm">
+    <div class="flex flex-col gap-10">
       <div class="col">
         <h1 class="text-xl pb-8">Simple selects</h1>
 
