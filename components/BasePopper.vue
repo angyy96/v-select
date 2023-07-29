@@ -31,33 +31,31 @@ const props = withDefaults(defineProps<Props>(), {
 
 const resizeObserver = ref<ResizeObserver | null>(null)
 const wrapper = ref<Element | VirtualElement | null>(null)
-
-const popper = ref<Instance | null>(null)
-const popperContainer = ref<HTMLElement | null>(null)
+const popper = ref<Instance | HTMLElement | null>(null)
 
 watch(
   () => props.value,
   (value: boolean) => {
-    if (!popper.value) return
+    if (popper.value === null) return
 
-    popper.value.setOptions((options) => ({
-      ...options,
-      modifiers: [
-        ...(options.modifiers ?? []),
-        { name: "eventListeners", enabled: value },
-      ],
-    }))
-
-    if (value) {
-      popper.value.update()
+    if ("setOptions" in popper.value) {
+      popper.value.setOptions((options) => ({
+        ...options,
+        modifiers: [
+          ...(options.modifiers ?? []),
+          { name: "eventListeners", enabled: value },
+        ],
+      }))
     }
+
+    if ("update" in popper.value && value) popper.value?.update()
   }
 )
 
 onBeforeUnmount(() => {
   if (popper.value === null) return
 
-  popper.value.destroy()
+  if ("destroy" in popper.value) popper.value.destroy()
 })
 
 const sameWidth: Modifier<string, Record<string, string>> = {
@@ -71,12 +69,7 @@ const sameWidth: Modifier<string, Record<string, string>> = {
 }
 
 onMounted(() => {
-  if (
-    popper.value === null ||
-    wrapper.value === null ||
-    popperContainer.value === null
-  )
-    return
+  if (popper.value === null || wrapper.value === null) return
 
   const modifiers = [
     {
@@ -98,11 +91,13 @@ onMounted(() => {
     modifiers.push(sameWidth)
   }
 
-  popper.value = createPopper(wrapper.value, popperContainer.value, {
-    placement: props.placement,
-    strategy: props.fixed ? "fixed" : "absolute",
-    modifiers,
-  })
+  if (popper.value instanceof HTMLElement) {
+    popper.value = createPopper(wrapper.value, popper.value, {
+      placement: props.placement,
+      strategy: props.fixed ? "fixed" : "absolute",
+      modifiers,
+    })
+  }
 
   resizeObserver.value = new ResizeObserver((entries) => {
     update()
@@ -113,33 +108,22 @@ onMounted(() => {
 
 const update = () => {
   if (popper.value === null) return
-  popper?.value.update()
+
+  if ("update" in popper.value) popper?.value.update()
 }
-
-const transitionName = computed(() => {
-  const reverseMap = {
-    left: "right",
-    right: "left",
-    top: "bottom",
-    bottom: "top",
-  }
-
-  const stripped = props.placement
-    .replace("-start", "")
-    .replace("-end", "") as keyof typeof reverseMap
-  const reverse = reverseMap[stripped]
-
-  return `translate-dropdown-to-${reverse}`
-})
 </script>
 
 <template>
   <div class="base-popper">
-    <slot />
+    <div ref="wrapper" class="wrapper">
+      <slot />
+    </div>
 
-    <div ref="popperContainer" class="base-popper__content">
+    <div ref="popper" class="popper">
       <transition name="fade">
-        <slot v-if="value && !disabled" name="content" />
+        <div v-show="value">
+          <slot name="content" />
+        </div>
       </transition>
     </div>
   </div>
@@ -147,7 +131,6 @@ const transitionName = computed(() => {
 
 <style scoped>
 .base-popper__content {
-  /* TODO ? */
   z-index: 50;
 }
 
@@ -155,7 +138,7 @@ const transitionName = computed(() => {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.8s ease;
 }
 
 .fade-enter-from,

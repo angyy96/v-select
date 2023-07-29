@@ -34,7 +34,7 @@ const simpleTypeObj = ref<DogOption>(
   <div class="playground">
     <div class="sm">
       <div class="col">
-        <h2>Simple selects</h2>
+        <h1 class="text-xl pb-8">Simple selects</h1>
 
         <VSelect
           v-model="simpleTypeObj"
@@ -54,17 +54,38 @@ const simpleTypeObj = ref<DogOption>(
           >
         </VSelect>
       </div>
+      <div class="col">
+        <h1 class="text-xl pb-8">Simple disabled selects</h1>
+
+        <VSelect
+          v-model="simpleTypeObj"
+          label="Select a dog"
+          :dv="(option) => option?.text"
+          id="select"
+          disabled
+          by="id"
+          placeholder="select a dog"
+          size="lg"
+        >
+          <VSelectOption
+            v-for="option in typeOptions"
+            :key="option.id"
+            :value="option"
+            size="sm"
+            >{{ option.text }}</VSelectOption
+          >
+        </VSelect>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .playground {
-  min-height: calc(100vh - 64px);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 16px;
-  padding: 24px;
+  grid-gap: 10rem;
+  padding: 2rem;
 
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));

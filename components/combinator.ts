@@ -67,8 +67,8 @@ export function useInputClass({
     "cursor-not-allowed": Boolean(disabled),
     "border-solid": true,
     "box-border": true,
-    "px-3": isSm,
-    "px-6": isMd || isLg,
+    "pl-3": isSm,
+    "pl-6": isMd || isLg,
   }
 }
 

@@ -123,7 +123,12 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
       </template>
 
       <template #body>
-        <base-popper ref="popper" :value="open" :same-width="true">
+        <base-popper
+          ref="popper"
+          :value="open"
+          :same-width="true"
+          :fixed="true"
+        >
           <div
             ref="around"
             class="flex border-solid border transition-all max-w-full"
@@ -147,7 +152,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
                 ref="inputComponent"
                 :data-testid="`${id}-input`"
                 :aria-invalid="!!error"
-                class="box-border placeholder:text-slate-400 outline-none p-0 min-w-0 bg-transparent border-0 combobox-input"
+                class="vselect__input box-border placeholder:text-slate-400 outline-none p-0 min-w-0 bg-transparent border-0 combobox-input"
                 autocomplete="off"
                 :display-value="dv"
                 :disabled="disabled"
@@ -161,7 +166,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
               ref="inputComponent"
               :data-testid="`${id}-input`"
               :aria-invalid="!!error"
-              class="box-border placeholder:text-slate-400 outline-none p-0 bg-transparent border-0 min-w-0 flex-1"
+              class="vselect__input box-border placeholder:text-slate-400 outline-none p-0 bg-transparent border-0 min-w-0 flex-1"
               autocomplete="off"
               :disabled="disabled"
               :display-value="dv"
@@ -173,7 +178,8 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
               :id="`${id}-button`"
               :data-testid="`${id}-button`"
               :disabled="disabled"
-              class="border-none w-2"
+              class="border-none w-16 flex items-center justify-center"
+              :class="{ 'vselect__button--disabled': disabled }"
             >
               <template v-if="loading" class="loading-icon">
                 <div class="m-loader-circle">
@@ -228,6 +234,12 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
   margin-right: 4px;
   color: orangered;
 }
+
+.vselect__input,
+.vselect__button--disabled {
+  cursor: inherit;
+}
+
 .vselect__options {
   margin: 0;
   background: white;

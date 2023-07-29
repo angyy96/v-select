@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="flex flex-col gap-3">
       <slot name="label"></slot>
 
       <div>
