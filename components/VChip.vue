@@ -31,40 +31,23 @@ const useChipClass = ({
 
   return {
     "py-4": isLg,
-    "px-8": isLg,
-    "rounded-6": isLg,
+    "px-6": isLg,
+    "rounded-lg": isLg,
 
     "py-2": isMd || isSm,
-    "px-6": isMd || isSm,
-    "rounded-4": isMd || isSm,
+    "px-4": isMd || isSm,
+    "rounded-md": isMd || isSm,
 
     "cursor-not-allowed": disabled,
-  }
-}
 
-const useChipTextClass = ({
-  size,
-}: ChipClassOptions): Record<string, boolean> => {
-  const isMd = size === "md"
-  const isSm = size === "sm"
-  const isLg = size === "lg"
+    "text-sm": isSm,
+    "text-base": isMd,
 
-  return {
-    "pr-8": isLg,
-    "pl-4": isLg,
-
-    "bottom-2": isLg || isMd,
-
-    "pr-6": isMd,
-    "pl-2": isMd,
-
-    "pr-2": isSm,
-    "bottom-1": isSm,
+    "text-lg": isLg,
   }
 }
 
 const chipClasses = computed(() => useChipClass(props))
-const chipTextClasses = computed(() => useChipTextClass(props))
 
 const handleClickOnClose = (): void => {
   emits("close")
@@ -72,16 +55,16 @@ const handleClickOnClose = (): void => {
 </script>
 
 <template>
-  <div class="v-chip inline-flex items-center bg-grey-100" :class="chipClasses">
-    <p class="v-chip__text" :class="chipTextClasses">
+  <div class="v-chip flex items-center gap-2 bg-slate-100" :class="chipClasses">
+    <p class="v-chip__text">
       <slot />
     </p>
-    <div
+    <button
       v-if="!disabled"
-      class="v-chip__close cursor-pointer leading-0 text-grey-500 hover:text-grey-800"
+      class="v-chip__close cursor-pointer leading-0 text-slate-500 hover:text-slate-800"
       @click="handleClickOnClose"
     >
       x
-    </div>
+    </button>
   </div>
 </template>
