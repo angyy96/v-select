@@ -108,7 +108,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
     :name="name"
     as="div"
     @update:model-value="onUpdateModelValue"
-    v-slot="{ open, active }"
+    v-slot="{ open }"
   >
     <VFormField :error="error">
       <template #label>
@@ -137,7 +137,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
           >
             <div
               v-if="multiple && Array.isArray(modelValue)"
-              class="multi-input flex min-w-0 flex-wrap flex-1 my-8 gap-8"
+              class="multi-input flex min-w-0 flex-wrap flex-1 my-4 gap-2"
             >
               <VChip
                 v-for="(selected, idx) in modelValue"
@@ -167,6 +167,7 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
             </div>
 
             <ComboboxInput
+              v-else
               :id="`${id}-input`"
               ref="inputComponent"
               :data-testid="`${id}-input`"
@@ -185,8 +186,8 @@ const onQueryChange = (e: Event & { target: HTMLInputElement }): void => {
             <ComboboxButton
               :id="`${id}-button`"
               :data-testid="`${id}-button`"
-              :disabled="disabled"
-              :aria-disabled="disabled"
+              :disabled="disabled || loading"
+              :aria-disabled="disabled || loading"
               class="border-none w-16 flex items-center justify-center"
               :class="{ 'vselect__button--disabled': disabled }"
             >

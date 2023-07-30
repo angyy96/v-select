@@ -1,7 +1,7 @@
 <script setup lang="ts">
 enum DogPedegree {
-  Labrador = "labrador",
-  Shepherd = "shepherd",
+  Labrador = "Labrador",
+  Shepherd = "Shepherd",
   Chihuahua = "Chihuahua",
 }
 
@@ -18,7 +18,7 @@ interface DogOption {
 }
 
 const typeOptions = [
-  { id: DogPedegree.Labrador, text: "Labrador", disabled: true },
+  { id: DogPedegree.Labrador, text: "Labrador" },
   { id: DogPedegree.Shepherd, text: "Shepherd" },
   { id: DogPedegree.Chihuahua, text: "Chihuahua" },
 ]
@@ -29,148 +29,166 @@ const simpleTypeObj = ref<DogOption>(
     typeOptions[0]
 )
 
-const simpleTypeObDisabled = ref<DogOption>(
-  typeOptions.find((option) => option.id == data.value.params.type) ??
-    typeOptions[0]
+const multipleObj = ref(
+  Object.keys(DogPedegree).map((val) => ({ id: val, text: val }))
 )
 </script>
 
 <template>
   <div class="playground">
-    <div class="flex flex-col gap-10">
-      <div class="col">
-        <h1 class="text-xl pb-8">Simple small select</h1>
+    <div class="col">
+      <h1 class="text-xl pb-8">Simple small select</h1>
 
-        <VSelect
-          v-model="simpleTypeObj"
-          label="Select a dog"
-          :dv="(option) => option?.text"
-          id="select_one"
-          by="id"
-          placeholder="select a dog"
+      <VSelect
+        v-model="simpleTypeObj"
+        label="Select a dog"
+        :dv="(option) => option?.text"
+        id="select_one"
+        by="id"
+        placeholder="select a dog"
+        size="sm"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option"
           size="sm"
+          >{{ option.text }}</VSelectOption
         >
-          <VSelectOption
-            v-for="option in typeOptions"
-            :key="option.id"
-            :value="option.id"
-            size="sm"
-            >{{ option.text }}</VSelectOption
-          >
-        </VSelect>
-      </div>
-      <div class="col">
-        <h1 class="text-xl pb-8">Simple medium select</h1>
+      </VSelect>
+    </div>
+    <div class="col">
+      <h1 class="text-xl pb-8">Simple medium select</h1>
 
-        <VSelect
-          v-model="simpleTypeObDisabled"
-          label="Select a dog"
-          :dv="(option) => option?.text"
-          id="select_two"
-          by="id"
-          placeholder="select a dog"
-          size="md"
+      <VSelect
+        v-model="simpleTypeObj"
+        label="Select a dog"
+        :dv="(option) => option?.text"
+        id="select_two"
+        by="id"
+        placeholder="select a dog"
+        size="md"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option.id"
+          size="sm"
+          >{{ option.text }}</VSelectOption
         >
-          <VSelectOption
-            v-for="option in typeOptions"
-            :key="option.id"
-            :value="option.id"
-            size="sm"
-            >{{ option.text }}</VSelectOption
-          >
-        </VSelect>
-      </div>
+      </VSelect>
+    </div>
 
-      <div class="col">
-        <h1 class="text-xl pb-8">Simple large select</h1>
+    <div class="col">
+      <h1 class="text-xl pb-8">Simple large select</h1>
 
-        <VSelect
-          v-model="simpleTypeObDisabled"
-          label="Select a dog"
-          :dv="(option) => option?.text"
-          id="select_two"
-          by="id"
-          placeholder="select a dog"
-          size="lg"
+      <VSelect
+        v-model="simpleTypeObj"
+        label="Select a dog"
+        :dv="(option) => option?.text"
+        id="select_three"
+        by="id"
+        placeholder="select a dog"
+        size="lg"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option.id"
+          size="sm"
+          >{{ option.text }}</VSelectOption
         >
-          <VSelectOption
-            v-for="option in typeOptions"
-            :key="option.id"
-            :value="option.id"
-            size="sm"
-            >{{ option.text }}</VSelectOption
-          >
-        </VSelect>
-      </div>
+      </VSelect>
+    </div>
 
-      <div class="col">
-        <h1 class="text-xl pb-8">Simple disabled select</h1>
+    <div class="col">
+      <h1 class="text-xl pb-8">Simple disabled select</h1>
 
-        <VSelect
-          v-model="simpleTypeObDisabled"
-          label="Select a dog"
-          :dv="(option) => option?.text"
-          id="select_two"
-          disabled
-          by="id"
-          placeholder="select a dog"
-          size="lg"
+      <VSelect
+        v-model="simpleTypeObj"
+        label="Select a dog"
+        :dv="(option) => option?.text"
+        id="select_four"
+        disabled
+        by="id"
+        placeholder="select a dog"
+        size="lg"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option.id"
+          size="sm"
+          >{{ option.text }}</VSelectOption
         >
-          <VSelectOption
-            v-for="option in typeOptions"
-            :key="option.id"
-            :value="option.id"
-            size="sm"
-            >{{ option.text }}</VSelectOption
-          >
-        </VSelect>
-      </div>
+      </VSelect>
+    </div>
 
-      <div class="col">
-        <h1 class="text-xl pb-8">Simple select with error</h1>
+    <div class="col">
+      <h1 class="text-xl pb-8">Simple select with error</h1>
 
-        <VSelect
-          v-model="simpleTypeObDisabled"
-          label="Select a dog"
-          :dv="(option) => option?.text"
-          id="select_two"
-          error="Error"
-          by="id"
-          placeholder="select a dog"
-          size="lg"
+      <VSelect
+        v-model="simpleTypeObj"
+        label="Select a dog"
+        :dv="(option) => option?.text"
+        id="select_five"
+        error="Error"
+        by="id"
+        placeholder="select a dog"
+        size="lg"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option.id"
+          size="sm"
+          >{{ option.text }}</VSelectOption
         >
-          <VSelectOption
-            v-for="option in typeOptions"
-            :key="option.id"
-            :value="option.id"
-            size="sm"
-            >{{ option.text }}</VSelectOption
-          >
-        </VSelect>
-      </div>
+      </VSelect>
+    </div>
 
-      <div class="col">
-        <h1 class="text-xl pb-8">Simple select with loading</h1>
+    <div class="col">
+      <h1 class="text-xl pb-8">Simple select with loading</h1>
 
-        <VSelect
-          v-model="simpleTypeObDisabled"
-          label="Select a dog"
-          :dv="(option) => option?.text"
-          id="select_two"
-          :loading="true"
-          by="id"
-          placeholder="select a dog"
-          size="lg"
+      <VSelect
+        v-model="simpleTypeObj"
+        label="Select a dog"
+        :dv="(option) => option?.text"
+        id="select_six"
+        :loading="true"
+        by="id"
+        placeholder="select a dog"
+        size="lg"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option.id"
+          size="sm"
+          >{{ option.text }}</VSelectOption
         >
-          <VSelectOption
-            v-for="option in typeOptions"
-            :key="option.id"
-            :value="option.id"
-            size="sm"
-            >{{ option.text }}</VSelectOption
-          >
-        </VSelect>
-      </div>
+      </VSelect>
+    </div>
+
+    <div class="col">
+      <h1 class="text-xl pb-8">Multiple select</h1>
+
+      <VSelect
+        v-model="multipleObj"
+        label="Select a dog"
+        id="select_seven"
+        by="id"
+        multiple
+        size="md"
+      >
+        <VSelectOption
+          v-for="option in typeOptions"
+          :key="option.id"
+          :value="option"
+          size="sm"
+          >{{ option.text }}</VSelectOption
+        >
+      </VSelect>
     </div>
   </div>
 </template>
@@ -179,7 +197,7 @@ const simpleTypeObDisabled = ref<DogOption>(
 .playground {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10rem;
+  grid-gap: 4rem;
   padding: 2rem;
 
   --tw-text-opacity: 1;
