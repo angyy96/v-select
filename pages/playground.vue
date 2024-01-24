@@ -37,7 +37,7 @@ const multipleObj = ref(
 <template>
   <div class="playground">
     <div class="col">
-      <h1 class="text-xl pb-8">Simple small select</h1>
+      <h1 class="text-xm pb-8">Simple small select</h1>
 
       <VSelect
         v-model="simpleTypeObj"
@@ -57,6 +57,7 @@ const multipleObj = ref(
         >
       </VSelect>
     </div>
+
     <div class="col">
       <h1 class="text-xl pb-8">Simple medium select</h1>
 
@@ -198,7 +199,7 @@ const multipleObj = ref(
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 4rem;
-  padding: 2rem;
+  padding: 2rem 2rem 0;
 
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
